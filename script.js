@@ -360,7 +360,7 @@ function showInfo(id) {
     <ul>
       <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/aparna-venkatesh-0a518a303" target="_blank" style="color: #00d9ff;">View My Profile</a></li>
       <li><strong>Resume:</strong> <a href="Aparna_Venkatesh_Resume.pdf" download="Aparna_Venkatesh_Resume.pdf" target="_blank" rel="noopener" style="color: #00d9ff;">Download PDF</a></li>
-      <li><strong>Email:</strong> <a href="mailto:aparna@example.com" style="color: #00d9ff;">aparna@example.com</a></li>
+      <li><strong>Email:</strong> <a href="mailto:avenkatesh@umass.edu" style="color: #00d9ff;">aparna@example.com</a></li>
     </ul>
     <p>Feel free to reach out for collaborations or opportunities!</p>`;
   }
