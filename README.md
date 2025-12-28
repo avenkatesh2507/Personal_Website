@@ -4,7 +4,7 @@ An interactive Pac-Man themed portfolio website built with HTML, CSS, and JavaSc
 
 ## 🎮 Live Demo
 
-**[View Live Website](https://avenkatesh2507.github.io/weekly-building/)**
+**[View Live Website](https://avenkatesh2507.github.io/Personal_Website/)**
 
 ## Features
 

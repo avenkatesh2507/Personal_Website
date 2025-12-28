@@ -4,6 +4,11 @@ const ctx = canvas.getContext('2d');
 const infoBox = document.getElementById('infoBox');
 const scoreValue = document.getElementById('scoreValue');
 
+// Check if all elements exist
+if (!canvas || !ctx || !infoBox || !scoreValue) {
+  console.error('Missing required DOM elements');
+}
+
 const pacman = {
   x: 80,
   y: 80,
@@ -29,8 +34,8 @@ const circles = [
 const snacks = [
   { x: 250, y: 100 }, { x: 450, y: 100 }, { x: 550, y: 100 },
   { x: 200, y: 250 }, { x: 700, y: 250 },
-  { x: 300, y: 400 }, { x: 650, y: 400 },
-  { x: 350, y: 550 }, { x: 550, y: 550 },
+  { x: 320, y: 400 },
+  { x: 380, y: 520 }, { x: 520, y: 520 },
   { x: 100, y: 350 }, { x: 800, y: 350 }
 ];
 
@@ -286,17 +291,17 @@ function checkSnackCollision() {
 }
 
 function checkCircleCollision() {
-  if (infoBoxOpen) return; // Don't check if info box is already open
+  if (infoBoxOpen) return;
   
   circles.forEach(c => {
     let dist = Math.hypot(pacman.x - c.x, pacman.y - c.y);
-    if (dist < pacman.size + 45) {
+    
+    if (dist < pacman.size + 30) {
       if (!c.reached) {
         c.reached = true;
         score += 50;
         scoreValue.textContent = score;
         showInfo(c.id);
-        lastCircleId = c.id;
       }
     }
   });
@@ -328,7 +333,12 @@ function showInfo(id) {
     content = `<h2>👋 About Me</h2>
     <p>Hi! I'm Aparna Venkatesh, a Computer Science major currently studying at University of Massachusetts Amherst.</p>
     <p>I'm enthusiastic about technology, programming, and making a positive impact through innovation. I organized the inaugural TEDx event at my school and have completed advanced programming courses including Python and SQL.</p>
-    <p><strong>Skills:</strong> Python, SQL, JavaScript, HTML/CSS, MIT App Inventor, Database Management</p>`;
+    <div class="skills-section">
+      <h4>💻 Technical Skills</h4>
+      <p><strong>Programming Languages:</strong> Python, SQL, JavaScript, HTML, CSS, JAVA</p>
+      <p><strong>Frameworks & Tools:</strong> React, Node.js, Oracle PL/SQL, Git, MIT App Inventor, Figma, Gemini API, OpenAI API</p>
+      <p><strong>Core Concepts:</strong> Object-Oriented Programming, Database Design, Full-Stack Development</p>
+    </div>`;
   } else if (id === 'achievements') {
     content = `<h2>🏆 My Achievements</h2>
     <ul>
@@ -344,23 +354,60 @@ function showInfo(id) {
     </ul>`;
   } else if (id === 'projects') {
     content = `<h2>💻 My Projects</h2>
-    <ul>
-      <li><strong>Sentiment Analyser for Stock Market</strong> - Python & CSV</li>
-      <li><strong>Library Management Website</strong> - HTML</li>
-      <li><strong>Password Generator</strong> - Python</li>
-      <li><strong>Infinity 3000</strong> - Python</li>
-      <li><strong>A-EYE</strong> - MIT App Inventor</li>
-      <li><strong>Chlorobot</strong> - Robotics Project</li>
-      <li><strong>Cap for Visually Impaired</strong> - Innovation Project (2nd Place)</li>
-    </ul>
+    <div class="projects-container">
+      <div class="project-item">
+        <h3><strong>SenseAI — HackPrinceton</strong></h3>
+        <p>Built a B2B SaaS platform for customer service that analyzes calls in real time and retrospectively, generates actionable insights, provides business statistics, and supports employees with an AI chatbot for performance guidance and policy questions.</p>
+        <ul>
+          <li>Integrated OpenAI API to power the chatbot and Gemini API for sentiment analysis</li>
+          <li>Designed RESTful backend endpoints for efficient API calls and data flow</li>
+        </ul>
+      </div>
+      
+      <div class="project-item">
+        <h3><strong>Plant-Buddy — Plant Water Reminder</strong></h3>
+        <p>Developed a responsive web application using HTML, CSS, and JavaScript to help users schedule and track plant watering reminders.</p>
+        <ul>
+          <li>Implemented client-side logic to manage reminder states and improve usability through clean UI design</li>
+        </ul>
+      </div>
+      
+      <div class="project-item">
+        <h3><strong>A-EYE: Assistive Cap for the Visually Impaired</strong></h3>
+        <p>Engineered a smart assistive device using ultrasonic sensors and Raspberry Pi to detect obstacles and provide real-time audio feedback.</p>
+        <ul>
+          <li>Integrated Bluetooth connectivity and emergency calling functionality via a prototype mobile application</li>
+          <li>Innovation Project (2nd Place)</li>
+        </ul>
+      </div>
+      
+      <div class="project-item">
+        <h3><strong>Labyrinth — RPG Game</strong></h3>
+        <p>Developed a Python-based role-playing game featuring maze navigation, player progression, and decision-driven gameplay mechanics.</p>
+        <ul>
+          <li>Applied object-oriented design principles to improve modularity and maintainability</li>
+        </ul>
+      </div>
+      
+      < class="other-projects">
+        <h4>Additional Projects:</h4>
+        <ul>
+          <li><strong>Sentiment Analyser for Stock Market</strong> - Python & CSV</li>
+          <li><strong>Library Management Website</strong> - HTML</li>
+          <li><strong>Password Generator</strong> - Python</li>
+          <li><strong>Infinity 3000</strong> - Python</li>
+          <li><strong>Chlorobot</strong> - Robotics Project</li>
+        </ul>
+      </div>
+    </div>
     <p><strong>Certifications:</strong> University of Helsinki Python Programming, JavaScript 12-hour program, Advanced Oracle PL/SQL</p>`;
   } else if (id === 'contact') {
     content = `<h2>📬 Contact & Resume</h2>
     <p>Want to connect or learn more about my work?</p>
     <ul>
       <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/aparna-venkatesh-0a518a303" target="_blank" style="color: #00d9ff;">View My Profile</a></li>
-      <li><strong>Resume:</strong> <a href="Aparna_Venkatesh_Resume.pdf" download="Aparna_Venkatesh_Resume.pdf" target="_blank" rel="noopener" style="color: #00d9ff;">Download PDF</a></li>
-      <li><strong>Email:</strong> <a href="mailto:avenkatesh@umass.edu" style="color: #00d9ff;">aparna@example.com</a></li>
+      <li><strong>Resume:</strong> <a href="https://drive.google.com/file/d/1Q9eiSiYx1UH2ZodYGK_BvMAw2OJzQs2O/view?usp=sharing" target="_blank" style="color: #00d9ff;">View Resume</a></li>
+      <li><strong>Email:</strong> <a href="mailto:avenkatesh@umass.edu" style="color: #00d9ff;">avenkatesh@umass.edu</a></li>
     </ul>
     <p>Feel free to reach out for collaborations or opportunities!</p>`;
   }
@@ -402,16 +449,6 @@ document.addEventListener('keydown', e => {
 document.addEventListener('keyup', e => {
   keys[e.key] = false;
 });
-
-
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes fadeOut {
-    from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    to { opacity: 0; transform: translate(-50%, -70%) scale(1.5); }
-  }
-`;
-document.head.appendChild(style);
 
 // --- Main Loop ---
 function gameLoop() {
